@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C9EE484-A4C8-4A11-8CC8-2058A4FF1E36}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Baike.Dataservice</RootNamespace>
+    <AssemblyName>Baike.Dataservice</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\reference\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaiduTopService.cs" />
+    <Compile Include="Baseservice.cs" />
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="ImgService.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="MainService.cs" />
+    <Compile Include="NodeKeyword.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WXmpService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.csproj">
+      <Project>{e3d8759a-c5eb-402d-9f10-f5c6029a8d1a}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Html2Article\trunk\src\Html2Article\Html2Article.csproj">
+      <Project>{0edcfcdb-08fc-43ae-b6bb-baf8d6edf61e}</Project>
+      <Name>Html2Article</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NClassifier-0.1\newsrc\NClassifier\NClassifier\NClassifier.csproj">
+      <Project>{5deeae2a-f386-4e7f-b75a-caed2adabf2d}</Project>
+      <Name>NClassifier</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Baike.Data\Baike.Repository.csproj">
+      <Project>{0DBC8FBE-7703-44A4-B7A4-1443535C9A95}</Project>
+      <Name>Baike.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Baike.Domain\Baike.Entity.csproj">
+      <Project>{5f4c89fd-c2c1-46fc-a463-a67801944262}</Project>
+      <Name>Baike.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Baike.Repository.Contract\Baike.Repository.Contract.csproj">
+      <Project>{DA41A652-0395-49E3-93B1-013DC87B33BC}</Project>
+      <Name>Baike.Repository.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

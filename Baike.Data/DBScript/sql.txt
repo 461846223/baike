@@ -1,0 +1,32 @@
+﻿
+----添加站点
+INSERT INTO [Baike].[dbo].[WebSite]
+           ([SiteName]
+           ,[Keywords]
+           ,[Description]
+           ,[DomainName]
+           ,[PhysicalPath])
+     VALUES
+           (''
+           ,''
+           ,''
+           ,''
+           ,'')
+GO
+
+----添加分类
+INSERT INTO [Baike].[dbo].[Node]
+           ([SiteId]
+           ,[Title]
+           ,[ParentId]
+           ,[Keywords]
+           ,[Description])
+     VALUES
+           (1
+           ,'OA知识'
+           ,0
+           ,'什么是OA,OA是什么,OA基本概念,OA功能介绍,OA发展历程,OA系统'
+           ,'OA的定义，说起OA（Office Automation，办公自动化），总体上讲，它是指一切可满足于企事业单位的、综合型的、能够提高单位内部信息交流、共享、流转处理的和实现办公自动化和提高工作效率的各种信息化设备和应用软件.')
+GO
+
+

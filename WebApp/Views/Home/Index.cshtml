@@ -1,0 +1,200 @@
+﻿@using Baike.Entity
+@model Baike.Pagebuild.Models.HomePageModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <title>@Model.SeoInfo.Title</title>
+    <meta name="keywords" content="@Model.SeoInfo.Keywords">
+    <meta name="description" content="@Model.SeoInfo.Description">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/base.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/info.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/gotop.css" />
+</head>
+<body>
+    <!--  header  -->
+    <div class="header">
+        <div class="wrap clearfix">
+            <div class="weclome fl" id="lbl_user">
+
+                您好，欢迎来到     @Model.WebSiteInfo.SiteName
+             </div>
+            <div class="menu fr">
+                @foreach (var n in Model.NavList)
+                {
+                    <a target="_blank" href="@n.Herf">@n.Title</a>
+                }
+
+            </div>
+        </div>
+    </div>
+    <!--  hr-header  -->
+    <div class="info-header">
+        <div class="wrap clearfix">
+            <div class="logo fl"><h1><a href="@Model.WebSiteInfo.DomainName" title="@Model.WebSiteInfo.SiteName"><img src="/logo.png" alt="@Model.WebSiteInfo.SiteName" /></a></h1></div>
+            <div class="search fr">
+
+                <div class="search-label">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- nav -->
+    <div class="nav">
+        <div class="wrap">
+            <ul class="nav-list clearfix">
+                <li><a target="_blank" href="@Model.WebSiteInfo.DomainName">首页</a> </li>   
+                @foreach (var n in Model.NavList)
+                {
+                    if (n.Selected)
+                    {
+                        <li><a class="curr" href="@n.Herf">@n.Title</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@n.Herf">@n.Title</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <!--   -->
+  
+    <div class="index-main mt20 wrap clearfix" id="main">
+        <div class="wrap-left fl">
+              
+            @for (int i = 0; i < Model.NodeModels.Count; i++)
+            {
+                var nodemodel = Model.NodeModels[i];
+                   if (i>0)
+                    {
+                        <div class="index-left-label clearfix">
+                            <h2 class="fl">@nodemodel.NodeInfo.Title</h2>
+                        </div>
+                    }
+
+                <div class="info-index-l1">
+                    <ul>
+                        @foreach (Content item in nodemodel.Items)
+                        {
+                            <li>
+                                <div class="img">
+                                    <a href='@string.Format("{0}/content/{1}/{2}.shtml", Model.WebSiteInfo.DomainName, item.NodeId, item.Id)' title="@item.Title" target="_blank">
+                                        <img src="@item.ImageUrl" style="width: 180px; height: 130px; padding: 0px;" />
+                                    </a>
+                                </div>
+                                <div class="con">
+                                    <h3>
+                                        <a href='@string.Format("{0}/content/{1}/{2}.shtml", Model.WebSiteInfo.DomainName, item.NodeId, item.Id)' title="@item.Title" target="_blank">@item.Title</a>
+                                    </h3>
+                                    <p>
+                                        @item.Summary
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="index-left-ad">
+                    <!--#include file="/include/ad/AdHomeHeng.shtml"-->
+                </div>
+            }
+         
+        </div>
+        <!-- wrap-left end -->        <!-- wrap-left end -->
+        <div class="wrap-right fr">
+            <div class="info-box">
+                <div class="info-box-bar clearfix">
+                    <h4><a>行业热点</a></h4>
+                </div>
+                <div class="info-index-news">
+                    <!--#include file="/include/ad/AdSidebarList.shtml"-->
+                </div>
+            </div>
+            <div class="info-box mt20">
+                <div class="info-box-bar clearfix">
+                    <h4><a>最新内容</a></h4>
+                </div>
+                <div class="info-index-news">
+                    <ul>  
+                        @foreach (var item in Model.SidebarTag.LastItems)
+                        {
+                            <li><a href='@string.Format("{0}/content/{1}/{2}.shtml", Model.WebSiteInfo.DomainName, item.NodeId, item.Id)' target="_blank">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="index-right-ad">
+                <!--#include file="/include/ad/AdSidebarImg.shtml"-->
+            </div>
+            <div class="info-box mt20">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>热门标签</a>
+                    </h4>
+
+                </div>
+                <div class="info-index-label">
+                    <div class="hot-label">
+                        <!--#include file="/include/ad/AdSidebarTagCloud.shtml"-->
+                    </div>
+                </div>
+            </div>
+            <div class="index-right-ad">
+                <!--#include file="/include/ad/AdSidebarImg.shtml"-->
+            </div>
+
+            <div class="info-box">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>热门资讯排行榜</a>
+                    </h4>
+                </div>
+                <div class="info-week-news">
+                    <ul>
+                        @foreach (var item in Model.SidebarTag.HotItems)
+                            {
+                            <li><a href='@string.Format("{0}/content/{1}/{2}.shtml", Model.WebSiteInfo.DomainName, item.NodeId, item.Id)' target="_blank">@item.Title</a></li>
+                            }
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="index-right-ad">
+                <!--#include file="/include/ad/AdSidebarImg.shtml"-->
+            </div>
+        </div>
+        <!--底部横幅-->
+        <div class="index-left-ad">
+
+        </div>
+        <!-- wrap-right end -->
+    </div>
+    <!--  footer  -->
+
+    <div class="footer">
+        <div class="links">
+            <ul>
+                @foreach (var item in Model.FriendlyLinks)
+                {
+                    <li><a target="_blank" href="@item.Herf">@item.Title</a></li>
+                }
+            </ul>
+        </div>
+        <div class="wrap">
+            <div class="copyright">
+                备案号：&nbsp;&nbsp;@Model.WebSiteInfo.RecordNumber
+                <p>Copyright © 2007-2016 @Model.WebSiteInfo.DomainName All Rights Reserved. @Model.WebSiteInfo.SiteName 版权所有未经许可不得转载</p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

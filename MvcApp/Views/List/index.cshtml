@@ -1,0 +1,291 @@
+﻿@using PagedList.Mvc
+@model Baike.Pagebuild.Models.ListPageModel
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <title>@Model.Title</title>
+    <meta name="keywords" content="@Model.Keywords">
+    <meta name="description" content="@Model.Description">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="stylesheet" type="text/css" href="http://www.cakeok.cn/statics/css/content/base.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.cakeok.cn/statics/css/content/info.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.cakeok.cn/statics/css/content/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.cakeok.cn/statics/css/content/gotop.css" />
+    <script type="text/javascript" src="http://www.cakeok.cn/statics/js/content/jquery.js"></script>
+    <script type="text/javascript" src="http://www.cakeok.cn/statics/js/content/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="http://www.cakeok.cn/statics/js/content/buttonLite.js"></script>
+    <script type="text/javascript" src="http://www.cakeok.cn/statics/js/content/common.js"></script>
+    <base href="http://www.cakeok.cn/" />
+</head>
+<body>
+    <!--  header  -->
+    <div class="header">
+        <div class="wrap clearfix">
+            <div class="weclome fl" id="lbl_user">
+                您好，欢迎来到     @Model.WebsiteName   
+            </div>
+            <div class="menu fr">
+                <a href="http://www.cakeok.cn/" title="焙友之家首页" target="_blank">焙友之家</a>
+                <a target="_blank" href="http://bqt.cakeok.cn/">焙企通</a>&nbsp;&nbsp;
+                <a target="_blank" href="http://www.cakeok.cn/beiyoushangxueyuan/">焙友商学院</a>&nbsp;&nbsp;
+                <a target="_blank" href="http://www.cakeok.cn/html/hangyeguancha/">采购指南</a>&nbsp;&nbsp;
+                <a target="_blank" href="http://www.cakeok.cn/index.php?m=content&c=index&a=lists&catid=429">焙友杂志</a>&nbsp;&nbsp;
+                <a target="_blank" href="http://job.cakeok.cn">人才服务</a>&nbsp;&nbsp;
+                <a target="_blank" href="http://www.cakeok.cn/hongbeizixun/">烘焙资讯</a>&nbsp;&nbsp;
+
+            </div>
+        </div>
+    </div>
+    <!--  hr-header  -->
+    <div class="info-header">
+        <div class="wrap clearfix">
+            <div class="logo fl"><h1><a href="http://www.cakeok.cn/index.php?m=content&c=index&a=lists&catid=19" title="焙友之家烘焙资讯"><img src="http://www.cakeok.cn/statics/css/content/images/logo_news.jpg" alt="焙友之家烘焙资讯" /></a></h1></div>
+            <div class="search fr">
+                <form action="http://www.cakeok.cn/index.php" method="get" target="_blank">
+                    <input type="hidden" name="m" value="search" />
+                    <input type="hidden" name="c" value="index" />
+                    <input type="hidden" name="a" value="init" />
+                    <input type="hidden" name="typeid" value="1" id="typeid" />
+                    <input type="hidden" name="siteid" value="1" id="siteid" />
+                    <input type="text" class="text" name="q" id="q" onblur="if(this.value==''){ this.value='请输入关键字' }"
+                           onclick="if(this.value=='请输入关键字') {this.value='';}" value="请输入关键字" /><input type="submit" value="" class="submit" />
+                </form>
+                <div class="search-label">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- nav -->
+    <div class="nav">
+        <div class="wrap">
+            <ul class="nav-list clearfix">
+                           @foreach (var n in Model.NavList)
+                           {
+                               if (n.Selected)
+                               {
+                                   <li><a class="curr" href="@n.Herf">@n.Title</a></li>
+                               }
+                               else
+                               {
+                                          <li><a href="@n.Herf">@n.Title</a></li>
+                               }
+
+                           }
+                
+            </ul>
+        </div>
+    </div>
+    <!--   -->     <!--  index-main  -->
+    <div class="index-main mt20 wrap clearfix" id="main">
+        <div class="wrap-left fl">
+            <!-- 分类-->
+            <div class="info-subpage">
+                <h1>@Model.NodeTitle</h1>
+            </div>
+            <div class="info-index-l1 info-subpage-list">
+                <!-- 内容列表-->   
+                <ul>
+                    @foreach (var item in Model.Items)
+                    {
+                        <li>
+                            <div class="img">
+                                <a href="@item.Url" title="@item.Title" target="_blank">
+                                    <img src="@item.ImageUrl" onload=" zonstar.LoadImage(this, 180, 130) "  style="width: 180px; height: 130px; padding: 0px;" />
+                                </a>
+                            </div>
+                            <div class="con">
+                                <h3>
+                                    <a href="@item.Url" title="@item.Title" target="_blank">@item.Title</a>
+                                </h3>
+                                <p>
+                                    @item.Summary
+                                </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div id="Prompt" style="text-align: center; margin-top:20px;">
+            </div>  
+            <!-- 分页-->
+            <div id="pages" class="pages">
+                @Html.PagedListPager(Model.Items, page => Url.Action("Index", new { page }))
+                <span class="disabled">上一页</span> <span class="current">1</span> <a href="/remaixinpin/2.html">2</a> <a href="/remaixinpin/3.html">3</a> <a href="/remaixinpin/4.html">4</a> <a href="/remaixinpin/5.html">5</a> <a href="/remaixinpin/6.html">6</a> <a href="/remaixinpin/7.html">7</a> <a href="/remaixinpin/8.html">8</a> <a href="/remaixinpin/9.html">9</a> <a href="/remaixinpin/10.html">10</a> ..<a href="/remaixinpin/21.html">21</a> <a href="/remaixinpin/2.html" class="a1">下一页</a>
+            </div>
+        </div>
+        <!-- wrap-left end -->
+        <div class="wrap-right fr">
+            <div class="info-box">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>本月热门</a>
+                    </h4>
+                </div>
+                <div class="info-week-news">
+                    <ul>
+                        <li><a href="http://www.cakeok.cn/2014/0801/4647642.html" target="_blank" title="5款营养吐司 视觉系快手早餐">5款营养吐司 视觉系快手早餐</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0730/4647583.html" target="_blank" title="手撕面包 撕出新奇好味道">手撕面包 撕出新奇好味道</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0731/4647608.html" target="_blank" title="情人节迷你小蛋糕">情人节迷你小蛋糕</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0714/4647366.html" target="_blank" title="颠倒众生的菠萝蛋糕秘方">颠倒众生的菠萝蛋糕秘方</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0805/4647699.html" target="_blank" title="免烤芝士蛋糕 懒人吃货的福音">免烤芝士蛋糕 懒人吃货的福音</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0801/4647634.html" target="_blank" title="最适合朋友相聚的手礼蛋糕—拜拜蛋糕">最适合朋友相聚的手礼蛋糕—拜拜蛋糕</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0808/4647779.html" target="_blank" title="哈根达斯月饼">哈根达斯月饼</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0721/4647458.html" target="_blank" title="“舒芙蕾”的制作方法">“舒芙蕾”的制作方法</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0806/4647725.html" target="_blank" title="优雅的法式风情----手指泡芙">优雅的法式风情----手指泡芙</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0805/4647669.html" target="_blank" title="最实在的蛋糕—豆腐蛋糕">最实在的蛋糕—豆腐蛋糕</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="index-right-ad">
+
+            </div>
+            <div class="info-box">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>本周热门</a>
+                    </h4>
+                </div>
+                <div class="info-week-news">
+                    <ul class="content rank">
+                        <li><a href="http://www.cakeok.cn/2014/0815/4647906.html" style="" class="title" title="5种咖啡味甜品的做法">5种咖啡味甜品的做法</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0826/4648041.html" style="" class="title" title="色彩艳丽的长颈鹿蛋糕卷">色彩艳丽的长颈鹿蛋糕卷</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0822/4647977.html" style="" class="title" title="爱Coffee：4种咖啡味甜品的做法">爱Coffee：4种咖啡味甜品的做法</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0812/4647829.html" style="" class="title" title="紫薯+胡萝卜，打造健康美味彩色【双色土司】">紫薯+胡萝卜，打造健康美味彩色【双...</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0822/4647979.html" style="" class="title" title="不容错过的最柔软的戚风蛋糕">不容错过的最柔软的戚风蛋糕</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0721/4647450.html" style="" class="title" title="相片蛋糕完爆眼球，甜蜜来袭">相片蛋糕完爆眼球，甜蜜来袭</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0811/4647787.html" style="" class="title" title="童趣盎然的星星派皮">童趣盎然的星星派皮</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0808/4647777.html" style="" class="title" title="抹茶菠萝包——爱的味道">抹茶菠萝包——爱的味道</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0822/4647975.html" style="" class="title" title="分分钟就能做好的10款免烤芝士蛋糕（2）">分分钟就能做好的10款免烤芝士蛋糕（2）</a></li>
+                        <li><a href="http://www.cakeok.cn/2014/0825/4648013.html" style="" class="title" title="纸杯篮子蛋糕，一篮春色满口甜香">纸杯篮子蛋糕，一篮春色满口甜香</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="info-box mt20">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>热门标签</a>
+                    </h4>
+
+                </div>
+                <div class="info-index-label">
+                    <div class="hot-label">
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E9%A5%BC%E5%BA%97"
+                           style="color: #FF0000"
+                           target="_blank">饼店</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E7%83%98%E7%84%99"
+                           style="color: #0000FF"
+                           target="_blank">烘焙</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E8%9B%8B%E7%B3%95"
+                           target="_blank">蛋糕</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E9%9D%A2%E5%8C%85"
+                           target="_blank">面包</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E7%94%9C%E5%93%81"
+                           style="color: #99CC66"
+                           target="_blank">甜品</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E9%A5%BC%E5%BA%97%E8%90%A5%E9%94%80"
+                           style="color: #336600"
+                           target="_blank">饼店营销</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E5%BA%97%E9%95%BF"
+                           target="_blank">店长</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E6%9C%88%E9%A5%BC"
+                           style="color: #3300FF"
+                           target="_blank">月饼</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E9%A1%BE%E5%AE%A2"
+                           target="_blank">顾客</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E5%BE%AE%E4%BF%A1%E8%90%A5%E9%94%80"
+                           target="_blank">微信营销</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E9%9D%A2%E5%8C%85%E5%BA%97"
+                           target="_blank">面包店</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E7%84%99%E5%8F%8B%E4%B9%8B%E5%AE%B6"
+                           target="_blank">焙友之家</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E5%B7%A7%E5%85%8B%E5%8A%9B"
+                           target="_blank">巧克力</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E7%94%9C%E7%82%B9"
+                           target="_blank">甜点</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E4%B8%9A%E7%BB%A9"
+                           style="color: #006633"
+                           target="_blank">业绩</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E4%BF%83%E9%94%80%E6%B4%BB%E5%8A%A8"
+                           target="_blank">促销活动</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E8%AE%AD%E7%BB%83%E8%90%A5"
+                           target="_blank">训练营</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E4%BF%83%E9%94%80"
+                           target="_blank">促销</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E6%8A%80%E5%B7%A7"
+                           target="_blank">技巧</a>
+
+                        <a href="http://www.cakeok.cn/index.php?m=content&c=tag&a=lists&tag=%E9%A5%BC%E6%88%BF"
+                           target="_blank">饼房</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--底部横幅-->
+        <div class="index-left-ad">
+        </div>
+        <!-- wrap-right end -->
+    </div>
+    <!--  footer  -->
+
+    <div class="footer">
+        <div class="wrap">
+            <div class="footer-nav">
+                <a href="http://www.cakeok.cn/html/wangzhanjieshao/about/" target="_blank" style="color:#369;">关于我们</a> <span>│</span>
+
+                <a href="http://www.cakeok.cn/html/wangzhanjieshao/lianxifangshi/" target="_blank" style="color:#369;">联系方式</a> <span>│</span>
+
+                <a href="http://www.cakeok.cn/html/wangzhanjieshao/zhaoshang/" target="_blank" style="color:#369;">招商合作</a> <span>│</span>
+
+                <a href="http://www.cakeok.cn/html/wangzhanjieshao/banquanshengming/" target="_blank" style="color:#369;">版权声明</a> <span>│</span>
+
+                <a href="http://www.cakeok.cn/html/wangzhanjieshao/sitemap/" target="_blank" style="color:#369;">网站地图</a> <span>│</span>
+
+                <a href="http://www.cakeok.cn/html/wangzhanjieshao/reagreement/" target="_blank" style="color:#369;">服务条款</a> <span>│</span>
+
+                <a href="http://www.cakeok.cn/index.php?m=link" target="_blank" style="color:#369;">友情链接</a><span>│</span> <a href="http://old.cakeok.cn/" target="_blank" style="color:#999;">旧网站</a>
+            </div>
+            <div class="touch">
+                服务热线：
+                <span>400-690-1618</span>
+                <span>0371-62003659</span>
+                <span>0371-62003656</span>
+                客服QQ：
+                <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2373960736&amp;site=qq&amp;menu=yes" rel="nofollow" target="_blank"><img border="0" style="vertical-align:middle" title="点击这里给我发消息" alt="点击这里给我发消息" src="http://www.cakeok.cn/statics/css/index/images/button_51.gif"> 2373960736</a>
+                <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2439139435&amp;site=qq&amp;menu=yes" rel="nofollow" target="_blank"><img border="0" style="vertical-align:middle" title="点击这里给我发消息" alt="点击这里给我发消息" src="http://www.cakeok.cn/statics/css/index/images/button_51.gif"> 2439139435</a>
+            </div>
+            <div class="copyright">
+                备案号：豫ICP备13010679号-7&nbsp;&nbsp;增值电信业务经营许可证:豫B2-20130055
+                <p>Copyright © 2007-2011 www.Cakeok.Cn All Rights Reserved. 焙友之家 版权所有未经许可不得转载</p>
+
+            </div>
+        </div>
+    </div>
+        
+</body>
+</html>

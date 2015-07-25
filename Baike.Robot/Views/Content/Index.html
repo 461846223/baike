@@ -1,0 +1,201 @@
+﻿@using Baike.Entity
+@model Baike.Pagebuild.Models.ContentPageModel
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <title>@Model.SeoInfo.Title</title>
+    <meta name="keywords" content="@Model.SeoInfo.Keywords">
+    <meta name="description" content="@Model.SeoInfo.Description">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/base.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/info.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.WebSiteInfo.DomainName/statics/css/content/gotop.css" />
+    <link href="http://www.cakeok.cn/statics/css/dialog.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!--  header  -->
+    <div class="header">
+        <div class="wrap clearfix">
+            <div class="weclome fl" id="lbl_user">
+                您好，欢迎来到     @Model.WebSiteInfo.SiteName
+            </div>
+            <div class="menu fr">
+                
+               
+                @foreach (var n in Model.NavList)
+                {
+                <a href="@n.Herf">@n.Title</a>
+                }
+            </div>
+        </div>
+    </div>
+    <!--  hr-header  -->
+    <div class="info-header">
+        <div class="wrap clearfix">
+            <div class="logo fl"><h1><a href="@Model.WebSiteInfo.DomainName" title="@Model.WebSiteInfo.SiteName"><img src="/logo.png" alt="@Model.WebSiteInfo.SiteName" /></a></h1></div>
+            <div class="search fr">
+
+                <div class="search-label">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- nav -->
+    <div class="nav">
+        <div class="wrap">
+            <ul class="nav-list clearfix">
+                
+                
+                <li><a  href=" @Model.WebSiteInfo.DomainName">首页</a> </li>
+                    @foreach (var n in Model.NavList)
+                    {
+                    if (n.Selected)
+                    {
+        <li><a class="curr" href="@n.Herf">@n.Title</a></li>
+                }
+                else
+                {
+                <li><a href="@n.Herf">@n.Title</a></li>
+                }
+                }
+
+            </ul>
+        </div>
+    </div>
+    <!--   -->
+    <!--  index-main  -->
+    <div class="index-main mt20 wrap clearfix" id="main">
+        <div class="wrap-left fl">
+            <div class="info-break">
+                @foreach (var info in Model.BreadcrumbNavigation)
+                {
+                <a href="@info.Herf">@info.Title</a>
+                    
+                }
+                正文
+            </div>
+            <div class="detail-h1">
+                <h1>@Model.Title</h1>
+            </div>
+            <div class="detail-attr clearfix">
+                <div class="fl">
+                    <span>来源：@Model.WebSiteInfo.SiteName</span>
+                   
+
+                </div>
+            </div>
+            <div class="detail-con clearfix">
+                <content class="content">
+                    @Raw(Model.ContentText)
+                </content>    
+            </div>
+            <div class="pages pages-m">
+            </div>
+            <div class="detail-goback">
+                <a href="@Model.WebSiteInfo.DomainName">首页&gt;&gt;</a>
+            </div>
+            <div class="detail-rele mt20">
+                <div class="detail-rele-bar">
+                    <h2>
+                        相关阅读
+                    </h2>
+                </div>
+                <ul>@foreach (Content item in Model.RelatedItems)
+                  {
+                    <li>
+                        <a href='@string.Format("{0}/content/{1}/{2}.shtml",Model.WebSiteInfo.DomainName,item.NodeId,item.Id)' title="@item.Title" target="_blank">
+                            @item.Title</a>
+                    </li>
+                  }
+                </ul>
+            </div>
+
+        </div>
+        <!-- wrap-left end -->
+
+
+        <div class="wrap-right fr">
+            <div class="info-box">
+                <!--#include file="/include/ad/AdSidebarList.shtml"-->
+            </div>
+            <div class="info-box">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>最新内容</a>
+                    </h4>
+                </div>
+                <div class="info-week-news">
+                    <ul>@foreach (var item in Model.SidebarTag.LastItems)
+                        {
+                        <li><a href='@string.Format("{0}/content/{1}/{2}.shtml", Model.WebSiteInfo.DomainName, item.NodeId, item.Id)' target="_blank">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="index-right-ad">
+
+            </div>
+            <div class="info-box">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>本周热门</a>
+                    </h4>
+                </div>
+                <div class="info-week-news">
+                    <ul class="content rank">@foreach (var item in Model.SidebarTag.OldItems)
+                        {
+                        <li><a href='@string.Format("{0}/content/{1}/{2}.shtml", Model.WebSiteInfo.DomainName, item.NodeId, item.Id)' target="_blank">@item.Title</a></li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="info-box mt20">
+                <div class="info-box-bar clearfix">
+                    <h4>
+                        <a>热门标签</a>
+                    </h4>
+
+                </div>
+                <div class="info-index-label">
+                    <div class="hot-label">
+                        <!--#include file="/include/ad/AdSidebarTagCloud.shtml"-->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--底部横幅-->
+        <div class="index-left-ad">
+
+        </div>
+    </div>
+    <!--  footer  -->
+
+    <div class="footer">
+        <div class="links">
+            <ul>@foreach (var item in Model.FriendlyLinks)
+                {
+                <li><a target="_blank" href="@item.Herf">@item.Title</a></li>
+                }
+            </ul>
+        </div>
+        <div class="wrap">
+            <div class="copyright">
+                备案号：&nbsp;&nbsp; @Model.WebSiteInfo.RecordNumber
+                <p>Copyright © 2007-2016 @Model.WebSiteInfo.DomainName All Rights Reserved. @Model.WebSiteInfo.SiteName 版权所有未经许可不得转载</p>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include file="/include/footer.shtml"-->
+</body>
+</html>
